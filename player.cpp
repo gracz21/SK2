@@ -28,6 +28,8 @@ void Player::zmiana_polozenia(int number){
         this->setX(getX() + speed*cos(this->getAlfa()));
         this->setY(getY() - speed*sin(this->getAlfa()));
         this->setShadow(getX(), getY(), number);
+        if ((this->getX() >= 398) && (this->getX() < 400 ) && (this->getY() > 360 ))
+                this->incLap();
         for(int i=0;i<50;i++)
             al_draw_filled_circle(this->getShadowX(i), this->getShadowY(i), 4, this->getColor());
     } else
@@ -38,7 +40,7 @@ bool Player::crash(){
     float x = getX();// + speed*cos(this->getAlfa());
     float y = getY();// - speed*sin(this->getAlfa());
 
-    if ((y < 117) || (y > 486))
+    if ((y < 115) || (y > 486))
         return true;
     if ((x > 188) && (x < 614) && (y < 366) && (y > 237))
         return true;
