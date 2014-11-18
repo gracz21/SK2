@@ -20,10 +20,10 @@
 	<allegro5/allegro_primitives.h>
 	<allegro5/allegro_image.h>
 
-1416337921 source:/home/maciej/SK2/projekt.cpp
+1416343550 source:/home/maciej/SK2/projekt.cpp
 	"projekt.h"
 
-1416336400 /home/maciej/SK2/projekt.h
+1416341099 /home/maciej/SK2/projekt.h
 	<iostream>
 	<allegro5/allegro.h>
 	<allegro5/allegro_native_dialog.h>
@@ -35,10 +35,11 @@
 
 1416334599 /home/maciej/SK2/include/player.h
 
-1416337718 /home/maciej/SK2/player.h
+1416345640 /home/maciej/SK2/player.h
 	<cmath>
+	<iostream>
 	<allegro5/allegro_primitives.h>
 
-1416337944 source:/home/maciej/SK2/player.cpp
+1416349084 source:/home/maciej/SK2/player.cpp
 	"player.h"
 

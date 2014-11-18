@@ -167,7 +167,13 @@ int main(){
 
             al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
+            if(!draw_laps(czerwony->getLap(), comforta))
+                game = false;
+
+
+
             czerwony->zmiana_polozenia(number);
+            cout << czerwony->getX() << "\t\t" << czerwony->getY() << endl;
             //zielony->zmiana_polozenia(number);
             //zolty->zmiana_polozenia(number);
             //niebieski->zmiana_polozenia(number);

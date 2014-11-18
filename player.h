@@ -2,9 +2,11 @@
 #define PLAYER_H
 
 #include <cmath>
+#include <iostream>
 #include <allegro5/allegro_primitives.h>
 
 #define speed 2
+using namespace std;
 
 class Player
 {
@@ -30,7 +32,12 @@ class Player
         float getShadowY(int number) { return shadow[number][1]; }
         void setShadow(float x, float y, int number) { shadow[number][0] = x; shadow[number][1] = y;  }
 
+        float getLap() { return lap; }
+        void setLap(float val) { lap = val; }
+        void incLap() { lap++; }
+
         void zmiana_polozenia(int number);
+        bool crash();
 
     protected:
 
@@ -40,6 +47,8 @@ class Player
         float alfa;
         ALLEGRO_COLOR color;
         float shadow[50][2];
+
+        int lap;
 
 };
 
