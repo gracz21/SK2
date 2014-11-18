@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1416269965 source:/home/maciej/Pulpit/Sieci/projekt/projekt.cpp
+	"projekt.h"
+
+1416220575 source:/home/maciej/Pulpit/Sieci/projekt/projekt.c
+	<stdio.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_primitives.h>
+
+1416269997 /home/maciej/Pulpit/Sieci/projekt/projekt.h
+	<iostream>
+	<cmath>
+	<allegro5/allegro.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_primitives.h>
+	<allegro5/allegro_image.h>
+
