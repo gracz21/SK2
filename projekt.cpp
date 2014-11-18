@@ -117,11 +117,11 @@ int main(){
     }
 
     int number = 0;
-    float x = 400.0, y =390.0, alfa = 0.0, tab[shadow][2];
-    for(int i=0; i<shadow;i++){
-        tab[i][0] = 400;
-        tab[i][1] = 390;
-    }
+    Player *czerwony = new Player(400,390, al_map_rgb(255,0,0));
+    Player *zielony = new Player(400, 415, al_map_rgb(0,255,0));
+    Player *zolty = new Player(400, 440, al_map_rgb(255,255,0));
+    Player *niebieski = new Player(400, 465, al_map_rgb(0,255,255));
+
     while(game){
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue, &events);
@@ -131,7 +131,7 @@ int main(){
             switch(events.keyboard.keycode)
             {
                 case ALLEGRO_KEY_LEFT:
-                    //wysylanie
+                    //wysylanie wcisniecia
                     pressed = true;
                     break;
             }
@@ -141,7 +141,7 @@ int main(){
             switch(events.keyboard.keycode)
             {
                 case ALLEGRO_KEY_LEFT:
-                    //wysylanie
+                    //wysylanie puszczenia
                     pressed = false;
                     break;
                 case ALLEGRO_KEY_ESCAPE:
@@ -158,17 +158,20 @@ int main(){
         {
             draw = false;
             if (pressed == true)
-                alfa += 0.0174;
+                czerwony->incAlfa();
+            if (number < 49)
+                number++;
+            else
+                number = 0;
+
 
             al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
-            zmiana_polozenia(x,y,alfa,tab,number);
 
+            czerwony->zmiana_polozenia(number);
+            //zielony->zmiana_polozenia(number);
+            //zolty->zmiana_polozenia(number);
+            //niebieski->zmiana_polozenia(number);
 
-
-
-            al_draw_filled_circle(400, 415, 5, al_map_rgb(0,255,0));
-            al_draw_filled_circle(400, 440, 5, al_map_rgb(255,255,0));
-            al_draw_filled_circle(400, 465, 5, al_map_rgb(0,255,255));
 
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0));

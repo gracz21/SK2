@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_ttf.h>
@@ -7,16 +6,17 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 
+#include "player.h"
+
 #define ScreenWidth 800
 #define ScreenHeight 600
 #define FPS 60
-#define speed 2
-#define shadow 50
+
 
 using namespace std;
 
 /* *** TODO ***
- *  github              15
+ *  github              \/
  *  klasa player        15
  *  łuk                 5
  *  kolizje             25
@@ -27,18 +27,6 @@ using namespace std;
  *  wysyłanie               --
  */
 
-void zmiana_polozenia(float &x, float &y, float alfa, float tab[][2], int &number){
-    if (number < shadow-1)
-        number++;
-    else
-        number = 0;
-    x += speed*cos(alfa);
-    y -= speed*sin(alfa);
-    tab[number][0] = x;
-    tab[number][1] = y;
-    for(int i=0;i<shadow;i++)
-        al_draw_filled_circle(tab[i][0], tab[i][1], 5, al_map_rgb(255,0,0));
-}
 
 void init()
 {
