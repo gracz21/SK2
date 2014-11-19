@@ -20,7 +20,7 @@ Player::Player(float x, float y, ALLEGRO_COLOR color)
     this->setColor(color);
     for (int i=0; i<50; i++)
         setShadow(x,y,i);
-    }
+}
 
 bool Player::zmiana_polozenia(int number){
     if(!this->crash())
@@ -40,18 +40,25 @@ bool Player::zmiana_polozenia(int number){
 }
 
 void Player::next_step(string winners[], int number){
-    if ((!this->zmiana_polozenia(number)))
-        for (int i =3; i>-1; i--)
+    if (!this->zmiana_polozenia(number)){
+        for (int i=3; i>(-1); i--){
+            if((winners[i] == "!@#") && (!this->getAdded())){
+                winners[i] = this->getName();
+                this->setAdded(true);
+            }}}
+    else if (this->getLap() == 5) {
+        for (int i=0; i<4; i++)
             if((winners[i] == "!@#") && (!this->getAdded())){
                 winners[i] = this->getName();
                 this->setAdded(true);
             }
+    }
 
 }
 
 bool Player::crash(){
-    float x = getX();// + speed*cos(this->getAlfa());
-    float y = getY();// - speed*sin(this->getAlfa());
+    float x = this->getX();// + speed*cos(this->getAlfa());
+    float y = this->getY();// - speed*sin(this->getAlfa());
 
     if ((y < 115) || (y > 486))
         return true;

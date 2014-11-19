@@ -23,12 +23,12 @@ int main(){
     al_start_timer(timer);
 
     bool  done = false, menu = true, name = false, game = false, draw = false, counting_down = false, pressed=false;
-    enum options {PLAY, EXIT};    int option = PLAY, number = 0;;
+    enum options {PLAY, EXIT};    int option = PLAY, number;
 
 ///////////////////////////////// POCZATEK PROGRAMU ////////////////////////////////////////////////////////////////
 
     while(!done) {
-
+    number = 0;
 ///////// ------------------ MENU --------------------- /////////
         while(menu){
             ALLEGRO_EVENT events;
@@ -235,14 +235,13 @@ int main(){
 
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
-//                if((niebieski->getLap() > 4) && (zolty->getLap() > 4) && (zielony->getLap() > 4))
-
-
                 czerwony->next_step(winners, number);
-
                 zielony->next_step(winners, number);
                 zolty->next_step(winners, number);
                 niebieski->next_step(winners, number);
+                for (int a = 0; a<4; a++)
+                    cout << winners[a] << "\t";
+                cout << endl;
 
                 if(!draw_laps(czerwony->getLap(), comforta, winners, czerwony->getName())){
                     counter--;

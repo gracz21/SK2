@@ -23,17 +23,12 @@ using namespace std;
  *  kolizje             \/
  *  opis okrążeń        \/
  *  nazwa użytkownika       \/
- *  orzekanie zwycięstwa    30
- *  orzekanie porażki       30
+ *  orzekanie zwycięstwa    \/
+ *  orzekanie porażki       \/
  *  powrot do menu          \/
  *  wysyłanie               --
  */
 
-
-void end_race(){
-    cout << "Koniec wyscigu" << endl;
-    //al_rest(3.0);
-}
 
 bool draw_laps(int lap, ALLEGRO_FONT *comforta, string winners[], string name)
 {
@@ -62,6 +57,7 @@ bool draw_laps(int lap, ALLEGRO_FONT *comforta, string winners[], string name)
             ss << (ktory+1);
             string miejsce = "Zająłeś " + ss.str() +  ". miejsce!";
             al_draw_text(comforta, al_map_rgb(255,10,10), 400, 275, ALLEGRO_ALIGN_CENTRE, miejsce.c_str());
+            return false;
         }
 
 }

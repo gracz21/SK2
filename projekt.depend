@@ -20,10 +20,10 @@
 	<allegro5/allegro_primitives.h>
 	<allegro5/allegro_image.h>
 
-1416403057 source:/home/maciej/SK2/projekt.cpp
+1416421963 source:/home/maciej/SK2/projekt.cpp
 	"projekt.h"
 
-1416402621 /home/maciej/SK2/projekt.h
+1416424768 /home/maciej/SK2/projekt.h
 	<iostream>
 	<sstream>
 	<allegro5/allegro.h>
@@ -42,6 +42,6 @@
 	<allegro5/allegro_primitives.h>
 	<string.h>
 
-1416403121 source:/home/maciej/SK2/player.cpp
+1416424765 source:/home/maciej/SK2/player.cpp
 	"player.h"
 
