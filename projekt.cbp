@@ -14,23 +14,22 @@
 				<Option projectIncludeDirsRelation="0" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="../../../allegro-5.0/build/include/allegro5" />
-					<Add directory="include" />
+					<Add directory="../allegro-5.0/build/include/allegro5" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../allegro-5.0/build/lib/liballegro.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_acodec.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_audio.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_color.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_dialog.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_font.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_image.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_main.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_memfile.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_physfs.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_primitives.so" />
-					<Add library="../../../allegro-5.0/build/lib/liballegro_ttf.so" />
-					<Add directory="../../../allegro-5.0/build/lib" />
+					<Add library="../allegro-5.0/build/lib/liballegro.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_acodec.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_audio.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_color.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_dialog.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_font.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_image.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_main.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_memfile.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_physfs.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_primitives.so" />
+					<Add library="../allegro-5.0/build/lib/liballegro_ttf.so" />
+					<Add directory="../allegro-5.0/build/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -52,18 +51,18 @@
 			<Add directory="../../../allegro-5.0/build/include/allegro5" />
 		</Compiler>
 		<Linker>
-			<Add library="../../../allegro-5.0/build/lib/liballegro.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_acodec.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_audio.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_color.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_dialog.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_font.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_image.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_main.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_memfile.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_physfs.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_primitives.so" />
-			<Add library="../../../allegro-5.0/build/lib/liballegro_ttf.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_main.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_dialog.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_physfs.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_ttf.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_memfile.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_color.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_audio.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_acodec.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_font.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_image.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro_primitives.so" />
+			<Add library="../allegro-5.0/build/lib/liballegro.so" />
 			<Add directory="../../../allegro-5.0/build/lib" />
 		</Linker>
 		<Unit filename="player.cpp" />

@@ -22,7 +22,7 @@ int main(){
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_start_timer(timer);
 
-    bool menu = true, game = false, draw = false, counting_down = false, pressed=false;
+    bool menu = true, name = false, game = false, draw = false, counting_down = false, pressed=false;
     enum options {PLAY, EXIT};
     int option = PLAY;
 
@@ -49,7 +49,7 @@ int main(){
                 case ALLEGRO_KEY_ENTER:
                     if (option==PLAY){
                         menu = false;
-                        counting_down = true;
+                        name = true;
                     } else
                         menu = false;
                     break;
@@ -83,7 +83,59 @@ int main(){
         }
     }
 
-    int counter = 180;
+    int number = 0;
+    Player *czerwony = new Player(400,390, al_map_rgb(255,0,0));
+    Player *zielony = new Player(400, 415, al_map_rgb(0,255,0));
+    Player *zolty = new Player(400, 440, al_map_rgb(255,255,0));
+    Player *niebieski = new Player(400, 465, al_map_rgb(0,255,255));
+
+    int counter = 639, kod = 0;
+    bool ok = false, press = false;
+    string nick = "";
+
+    while(name){
+
+        ALLEGRO_EVENT events;
+        al_wait_for_event(event_queue, &events);
+
+        if(events.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            kod = events.keyboard.keycode;
+            if (ALLEGRO_KEY_ENTER == kod)
+                ok = true;
+            else {
+                kod += 64;
+                press = true;
+            }
+        }
+
+        if (events.type == ALLEGRO_EVENT_TIMER)
+        {
+            counter--;
+            ostringstream ss;
+            ss << (counter/60);
+            string str = ss.str();
+            al_draw_text(draft, al_map_rgb(139, 69, 19), 400, 20, ALLEGRO_ALIGN_CENTRE, str.c_str());
+            if (press){
+                nick = nick + char(kod);
+                press = false;
+                }
+            al_draw_text(comforta, al_map_rgb(200,200,200), 400, 300, ALLEGRO_ALIGN_CENTRE, nick.c_str());
+            al_draw_text(secret, al_map_rgb(200,200,200), 400, 500, ALLEGRO_ALIGN_CENTRE, "{ OK }");
+            if(ok)
+                al_draw_rectangle(300, 493, 500, 560, al_map_rgb(139, 69, 19), 7.0);
+            al_flip_display();
+            al_clear_to_color(al_map_rgb(0,0,0));
+
+            if(counter < 1){
+                name = false;
+                if(ok)
+                    counting_down = true;
+            }
+        }
+    }
+
+    counter = 240;
     while(counting_down){
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue, &events);
@@ -98,7 +150,9 @@ int main(){
             al_draw_filled_circle(400, 440, 5, al_map_rgb(255,255,0));
             al_draw_filled_circle(400, 465, 5, al_map_rgb(0,255,255));
 
-            if ((counter<180) && (counter>120))
+            if ((counter<240) && (counter>180))
+                al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "Jesteś CZERWONYM");
+            else if ((counter<181) && (counter>120))
                 al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 3 -");
             else if ((counter<121) && (counter>60))
                 al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 2 -");
@@ -115,12 +169,6 @@ int main(){
 
 
     }
-
-    int number = 0;
-    Player *czerwony = new Player(400,390, al_map_rgb(255,0,0));
-    Player *zielony = new Player(400, 415, al_map_rgb(0,255,0));
-    Player *zolty = new Player(400, 440, al_map_rgb(255,255,0));
-    Player *niebieski = new Player(400, 465, al_map_rgb(0,255,255));
 
     while(game){
         ALLEGRO_EVENT events;

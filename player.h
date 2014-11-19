@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <allegro5/allegro_primitives.h>
+#include <string.h>
 
 #define speed 2
 using namespace std;
@@ -32,6 +33,9 @@ class Player
         float getShadowY(int number) { return shadow[number][1]; }
         void setShadow(float x, float y, int number) { shadow[number][0] = x; shadow[number][1] = y;  }
 
+        string getName() { return name; }
+        void setName(string val) { name = val; }
+
         float getLap() { return lap; }
         void setLap(float val) { lap = val; }
         void incLap() { lap++; }
@@ -47,7 +51,7 @@ class Player
         float alfa;
         ALLEGRO_COLOR color;
         float shadow[50][2];
-
+        string name;
         int lap;
 
 };

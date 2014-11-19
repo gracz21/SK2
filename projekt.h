@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_ttf.h>
@@ -20,9 +21,10 @@ using namespace std;
  *  klasa player        \/
  *  łuk                 \/
  *  kolizje             \/
- *  opis okrążeń        30
- *  wpisywanie nazwy użytkownika    60
+ *  opis okrążeń        \/
+ *  nazwa użytkownika       60
  *  orzekanie zwycięstwa    30
+ *  orzekanie porażki       30
  *  powrot do menu          30
  *  wysyłanie               --
  */
