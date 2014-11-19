@@ -20,10 +20,10 @@
 	<allegro5/allegro_primitives.h>
 	<allegro5/allegro_image.h>
 
-1416357040 source:/home/maciej/SK2/projekt.cpp
+1416390245 source:/home/maciej/SK2/projekt.cpp
 	"projekt.h"
 
-1416354377 /home/maciej/SK2/projekt.h
+1416390403 /home/maciej/SK2/projekt.h
 	<iostream>
 	<sstream>
 	<allegro5/allegro.h>

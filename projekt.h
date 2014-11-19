@@ -22,13 +22,17 @@ using namespace std;
  *  łuk                 \/
  *  kolizje             \/
  *  opis okrążeń        \/
- *  nazwa użytkownika       60
+ *  nazwa użytkownika       \/
  *  orzekanie zwycięstwa    30
  *  orzekanie porażki       30
- *  powrot do menu          30
+ *  powrot do menu          \/
  *  wysyłanie               --
  */
 
+
+void end_race(){
+    cout << "Koniec wyscigu" << endl;
+}
 
 bool draw_laps(int lap, ALLEGRO_FONT *comforta)
 {

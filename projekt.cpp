@@ -5,7 +5,7 @@ int main(){
     init();
     ALLEGRO_DISPLAY *display;
 	display = al_create_display(ScreenWidth, ScreenHeight);
-    al_set_window_position(display,1470,0);
+    al_set_window_position(display,470,0);
     al_set_window_title(display, "Żużel");
 	if (!display){
 		al_show_native_message_box(0, 0, 0, "Could not create Allegro window", 0, 0);
@@ -22,214 +22,225 @@ int main(){
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_start_timer(timer);
 
-    bool menu = true, name = false, game = false, draw = false, counting_down = false, pressed=false;
-    enum options {PLAY, EXIT};
-    int option = PLAY;
+    bool  done = false, menu = true, name = false, game = false, draw = false, counting_down = false, pressed=false;
+    enum options {PLAY, EXIT};    int option = PLAY, number = 0;;
 
-    while(menu){
-        ALLEGRO_EVENT events;
-        al_wait_for_event(event_queue, &events);
+///////////////////////////////// POCZATEK PROGRAMU ////////////////////////////////////////////////////////////////
 
-        if(events.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            switch(events.keyboard.keycode)
+    while(!done) {
+
+///////// ------------------ MENU --------------------- /////////
+        while(menu){
+            ALLEGRO_EVENT events;
+            al_wait_for_event(event_queue, &events);
+
+            if(events.type == ALLEGRO_EVENT_KEY_DOWN)
             {
-                case ALLEGRO_KEY_RIGHT:
-                    if (option == PLAY)
-                        option = EXIT;
-                    else
-                        option = PLAY;
-                    break;
-                case ALLEGRO_KEY_LEFT:
-                    if (option == PLAY)
-                        option = EXIT;
-                    else
-                        option = PLAY;
-                    break;
-                case ALLEGRO_KEY_ENTER:
-                    if (option==PLAY){
+                switch(events.keyboard.keycode)
+                {
+                    case ALLEGRO_KEY_RIGHT:
+                        if (option == PLAY)
+                            option = EXIT;
+                        else
+                            option = PLAY;
+                        break;
+                    case ALLEGRO_KEY_LEFT:
+                        if (option == PLAY)
+                            option = EXIT;
+                        else
+                            option = PLAY;
+                        break;
+                    case ALLEGRO_KEY_ENTER:
+                        if (option==PLAY){
+                            menu = false;
+                            name = true;
+                        } else{
+                            menu = false;
+                            done = true;
+                        }
+                        break;
+                    case ALLEGRO_KEY_ESCAPE:
                         menu = false;
-                        name = true;
-                    } else
-                        menu = false;
-                    break;
-                case ALLEGRO_KEY_ESCAPE:
-                    menu = false;
-                    break;
-            }
-        }
-        else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-            menu = false;
-
-        if (events.type == ALLEGRO_EVENT_TIMER)
-        {
-            draw = true;
-
-        }
-
-        if (draw)
-        {
-            draw = false;
-            al_draw_text(draft, al_map_rgb(139, 69, 19), ScreenWidth/2, 20, ALLEGRO_ALIGN_CENTRE, "Zuzel");
-            al_draw_text(secret, al_map_rgb(200,200,200), 250, 338, ALLEGRO_ALIGN_CENTRE, "{PLAY}");
-            al_draw_text(secret, al_map_rgb(200,200,200), 550, 338, ALLEGRO_ALIGN_CENTRE, "{EXIT}");
-            if (option == PLAY)
-                al_draw_rectangle(150, 330, 350, 400, al_map_rgb(139, 69, 19), 7.0);
-            else
-                al_draw_rectangle(450, 330, 650, 400, al_map_rgb(139, 69, 19), 7.0);
-
-            al_flip_display();
-            al_clear_to_color(al_map_rgb(0,0,0));
-        }
-    }
-
-    int number = 0;
-    Player *czerwony = new Player(400,390, al_map_rgb(255,0,0));
-    Player *zielony = new Player(400, 415, al_map_rgb(0,255,0));
-    Player *zolty = new Player(400, 440, al_map_rgb(255,255,0));
-    Player *niebieski = new Player(400, 465, al_map_rgb(0,255,255));
-
-    int counter = 639, kod = 0;
-    bool ok = false, press = false;
-    string nick = "";
-
-    while(name){
-
-        ALLEGRO_EVENT events;
-        al_wait_for_event(event_queue, &events);
-
-        if(events.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            kod = events.keyboard.keycode;
-            if (ALLEGRO_KEY_ENTER == kod)
-                ok = true;
-            else {
-                kod += 64;
-                press = true;
-            }
-        }
-
-        if (events.type == ALLEGRO_EVENT_TIMER)
-        {
-            counter--;
-            ostringstream ss;
-            ss << (counter/60);
-            string str = ss.str();
-            al_draw_text(draft, al_map_rgb(139, 69, 19), 400, 20, ALLEGRO_ALIGN_CENTRE, str.c_str());
-            if (press){
-                nick = nick + char(kod);
-                press = false;
+                        done = true;
+                        break;
                 }
-            al_draw_text(comforta, al_map_rgb(200,200,200), 400, 300, ALLEGRO_ALIGN_CENTRE, nick.c_str());
-            al_draw_text(secret, al_map_rgb(200,200,200), 400, 500, ALLEGRO_ALIGN_CENTRE, "{ OK }");
-            if(ok)
-                al_draw_rectangle(300, 493, 500, 560, al_map_rgb(139, 69, 19), 7.0);
-            al_flip_display();
-            al_clear_to_color(al_map_rgb(0,0,0));
+            }
+            else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                menu = false;
+                done = true;
+            }
 
-            if(counter < 1){
-                name = false;
+            if (events.type == ALLEGRO_EVENT_TIMER)
+                draw = true;
+
+            if (draw)
+            {
+                draw = false;
+                al_draw_text(draft, al_map_rgb(139, 69, 19), ScreenWidth/2, 20, ALLEGRO_ALIGN_CENTRE, "Zuzel");
+                al_draw_text(secret, al_map_rgb(200,200,200), 250, 338, ALLEGRO_ALIGN_CENTRE, "{PLAY}");
+                al_draw_text(secret, al_map_rgb(200,200,200), 550, 338, ALLEGRO_ALIGN_CENTRE, "{EXIT}");
+                if (option == PLAY)
+                    al_draw_rectangle(150, 330, 350, 400, al_map_rgb(139, 69, 19), 7.0);
+                else
+                    al_draw_rectangle(450, 330, 650, 400, al_map_rgb(139, 69, 19), 7.0);
+
+                al_flip_display();
+                al_clear_to_color(al_map_rgb(0,0,0));
+            }
+        }
+
+        Player *czerwony = new Player(400,390, al_map_rgb(255,0,0));
+        Player *zielony = new Player(400, 415, al_map_rgb(0,255,0));
+        Player *zolty = new Player(400, 440, al_map_rgb(255,255,0));
+        Player *niebieski = new Player(400, 465, al_map_rgb(0,255,255));
+
+///////// ---------------NAZWA UZYTKOWNIKA------------- /////////
+        int counter = 639, kod = 0; bool ok = false, press = false; string nick = "";
+        while(name){
+            ALLEGRO_EVENT events;
+            al_wait_for_event(event_queue, &events);
+
+            if(events.type == ALLEGRO_EVENT_KEY_DOWN)
+            {
+                kod = events.keyboard.keycode;
+                if (ALLEGRO_KEY_ENTER == kod)
+                    ok = true;
+                else {
+                    kod += 64;
+                    press = true;
+                }
+            }
+
+            if (events.type == ALLEGRO_EVENT_TIMER)
+            {
+                counter--;
+                ostringstream ss;
+                ss << (counter/60);
+                string str = ss.str();
+                al_draw_text(draft, al_map_rgb(139, 69, 19), 400, 20, ALLEGRO_ALIGN_CENTRE, str.c_str());
+                if (press){
+                    nick = nick + char(kod);
+                    press = false;
+                }
+                al_draw_text(comforta, al_map_rgb(50,50,50), 400, 250, ALLEGRO_ALIGN_CENTRE, "Enter your name:");
+                al_draw_text(comforta, al_map_rgb(200,200,200), 400, 350, ALLEGRO_ALIGN_CENTRE, nick.c_str());
+                al_draw_text(secret, al_map_rgb(200,200,200), 400, 500, ALLEGRO_ALIGN_CENTRE, "{ OK }");
                 if(ok)
-                    counting_down = true;
-            }
-        }
-    }
+                    al_draw_rectangle(300, 493, 500, 560, al_map_rgb(139, 69, 19), 7.0);
+                al_flip_display();
+                al_clear_to_color(al_map_rgb(0,0,0));
 
-    counter = 240;
-    while(counting_down){
-        ALLEGRO_EVENT events;
-        al_wait_for_event(event_queue, &events);
-
-        if (events.type == ALLEGRO_EVENT_TIMER)
-        {
-            counter--;
-            al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
-
-            al_draw_filled_circle(400, 390, 5, al_map_rgb(255,0,0));
-            al_draw_filled_circle(400, 415, 5, al_map_rgb(0,255,0));
-            al_draw_filled_circle(400, 440, 5, al_map_rgb(255,255,0));
-            al_draw_filled_circle(400, 465, 5, al_map_rgb(0,255,255));
-
-            if ((counter<240) && (counter>180))
-                al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "Jesteś CZERWONYM");
-            else if ((counter<181) && (counter>120))
-                al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 3 -");
-            else if ((counter<121) && (counter>60))
-                al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 2 -");
-            else if ((counter<61) && (counter>0))
-                al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 1 -");
-            else{
-                counting_down = false;
-                game = true;
+                if(counter < 1){
+                    name = false;
+                    if(ok)
+                        counting_down = true;
+                    else
+                        menu = true;
+                    czerwony->setName(nick);
                 }
-            al_flip_display();
-            al_clear_to_color(al_map_rgb(0,0,0));
+            }
+        }
+
+///////// ---------ODLICZANIE DO STARTU ------------ /////////
+        counter = 240; menu = true;
+        while(counting_down){
+            ALLEGRO_EVENT events;
+            al_wait_for_event(event_queue, &events);
+
+            if (events.type == ALLEGRO_EVENT_TIMER)
+            {
+                counter--;
+                al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+
+                al_draw_text(comforta, al_map_rgb(200,200,200), 20, 10, 0, czerwony->getName().c_str());
+
+                al_draw_filled_circle(400, 390, 5, al_map_rgb(255,0,0));
+                al_draw_filled_circle(400, 415, 5, al_map_rgb(0,255,0));
+                al_draw_filled_circle(400, 440, 5, al_map_rgb(255,255,0));
+                al_draw_filled_circle(400, 465, 5, al_map_rgb(0,255,255));
+
+                if ((counter<240) && (counter>180))
+                    al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "Jesteś CZERWONYM");
+                else if ((counter<181) && (counter>120))
+                    al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 3 -");
+                else if ((counter<121) && (counter>60))
+                    al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 2 -");
+                else if ((counter<61) && (counter>0))
+                    al_draw_text(comforta, al_map_rgb(200,200,200), 400, 275, ALLEGRO_ALIGN_CENTRE, "- 1 -");
+                else{
+                    counting_down = false;
+                    game = true;
+                    }
+                al_flip_display();
+                al_clear_to_color(al_map_rgb(0,0,0));
+
+            }
+
 
         }
 
+///////// ------------------ GRA --------------------- /////////
+        while(game){
+            ALLEGRO_EVENT events;
+            al_wait_for_event(event_queue, &events);
 
-    }
-
-    while(game){
-        ALLEGRO_EVENT events;
-        al_wait_for_event(event_queue, &events);
-
-        if(events.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            switch(events.keyboard.keycode)
+            if(events.type == ALLEGRO_EVENT_KEY_DOWN)
             {
-                case ALLEGRO_KEY_LEFT:
-                    //wysylanie wcisniecia
-                    pressed = true;
-                    break;
+                switch(events.keyboard.keycode)
+                {
+                    case ALLEGRO_KEY_LEFT:
+                        //wysylanie wcisniecia
+                        pressed = true;
+                        break;
+                }
             }
-        }
-        if(events.type == ALLEGRO_EVENT_KEY_UP)
-        {
-            switch(events.keyboard.keycode)
+            if(events.type == ALLEGRO_EVENT_KEY_UP)
             {
-                case ALLEGRO_KEY_LEFT:
-                    //wysylanie puszczenia
-                    pressed = false;
-                    break;
-                case ALLEGRO_KEY_ESCAPE:
-                    game = false;
-                    break;
-            }
-        } else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-            game = false;
-
-        if (events.type == ALLEGRO_EVENT_TIMER)
-            draw = true;
-
-        if (draw)
-        {
-            draw = false;
-            if (pressed == true)
-                czerwony->incAlfa();
-            if (number < 49)
-                number++;
-            else
-                number = 0;
-
-
-            al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
-            if(!draw_laps(czerwony->getLap(), comforta))
+                switch(events.keyboard.keycode)
+                {
+                    case ALLEGRO_KEY_LEFT:
+                        //wysylanie puszczenia
+                        pressed = false;
+                        break;
+                    case ALLEGRO_KEY_ESCAPE:
+                        game = false;
+                        menu = false;
+                        break;
+                }
+            } else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
                 game = false;
+                menu = false;
+                done = true;
+            }
 
+            if (events.type == ALLEGRO_EVENT_TIMER)
+                draw = true;
 
+            if (draw)
+            {
+                draw = false;
+                if (pressed == true)
+                    czerwony->incAlfa();
+                if (number < 49)
+                    number++;
+                else
+                    number = 0;
 
-            czerwony->zmiana_polozenia(number);
+                al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
+                if(!draw_laps(czerwony->getLap(), comforta))
+                    game = false;
 
-            //zielony->zmiana_polozenia(number);
-            //zolty->zmiana_polozenia(number);
-            //niebieski->zmiana_polozenia(number);
+                czerwony->zmiana_polozenia(number);
 
+                //zielony->zmiana_polozenia(number);
+                //zolty->zmiana_polozenia(number);
+                //niebieski->zmiana_polozenia(number);
 
-            al_flip_display();
-            al_clear_to_color(al_map_rgb(0,0,0));
+                al_flip_display();
+                al_clear_to_color(al_map_rgb(0,0,0));
+            }
+
         }
-
     }
     //al_rest(3.0);
     al_destroy_bitmap(tlo);
