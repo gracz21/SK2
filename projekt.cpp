@@ -95,7 +95,7 @@ int main(){
         Player *niebieski = new Player(400, 465, al_map_rgb(0,255,255));
 
 ///////// ---------------NAZWA UZYTKOWNIKA------------- /////////
-        int counter = 639, kod = 0; bool ok = false, press = false; string nick = "";
+        int counter = 339, kod = 0; bool ok = false, press = false; string nick = "";
         while(name){
             ALLEGRO_EVENT events;
             al_wait_for_event(event_queue, &events);
@@ -179,7 +179,9 @@ int main(){
 
         }
 
+        counter = 180;
 ///////// ------------------ GRA --------------------- /////////
+        string winners[4] = {"!@#","!@#","!@#","!@#"};
         while(game){
             ALLEGRO_EVENT events;
             al_wait_for_event(event_queue, &events);
@@ -194,6 +196,7 @@ int main(){
                         break;
                 }
             }
+
             if(events.type == ALLEGRO_EVENT_KEY_UP)
             {
                 switch(events.keyboard.keycode)
@@ -219,22 +222,33 @@ int main(){
             if (draw)
             {
                 draw = false;
-                if (pressed == true)
+                if (pressed == true){
                     czerwony->incAlfa();
+                    niebieski->incAlfa();
+                    zielony->incAlfa();
+                    zolty->incAlfa();
+                }
                 if (number < 49)
                     number++;
                 else
                     number = 0;
 
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
-                if(!draw_laps(czerwony->getLap(), comforta))
-                    game = false;
 
-                czerwony->zmiana_polozenia(number);
+//                if((niebieski->getLap() > 4) && (zolty->getLap() > 4) && (zielony->getLap() > 4))
 
-                //zielony->zmiana_polozenia(number);
-                //zolty->zmiana_polozenia(number);
-                //niebieski->zmiana_polozenia(number);
+
+                czerwony->next_step(winners, number);
+
+                zielony->next_step(winners, number);
+                zolty->next_step(winners, number);
+                niebieski->next_step(winners, number);
+
+                if(!draw_laps(czerwony->getLap(), comforta, winners, czerwony->getName())){
+                    counter--;
+                    if (counter < 1)
+                        game = false;
+                }
 
                 al_flip_display();
                 al_clear_to_color(al_map_rgb(0,0,0));
@@ -242,10 +256,10 @@ int main(){
 
         }
     }
-    //al_rest(3.0);
     al_destroy_bitmap(tlo);
     al_destroy_font(draft);
     al_destroy_font(secret);
+    al_destroy_font(comforta);
     al_destroy_display(display);
     al_destroy_timer(timer);
     al_destroy_event_queue(event_queue);

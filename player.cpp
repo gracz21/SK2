@@ -16,13 +16,13 @@ Player::Player(float x, float y, ALLEGRO_COLOR color)
     this->setY(y);
     this->setAlfa(0.0);
     this->setLap(1);
+    this->setAdded(false);
     this->setColor(color);
     for (int i=0; i<50; i++)
         setShadow(x,y,i);
+    }
 
-}
-
-void Player::zmiana_polozenia(int number){
+bool Player::zmiana_polozenia(int number){
     if(!this->crash())
     {
         this->setX(getX() + speed*cos(this->getAlfa()));
@@ -32,8 +32,21 @@ void Player::zmiana_polozenia(int number){
                 this->incLap();
         for(int i=0;i<50;i++)
             al_draw_filled_circle(this->getShadowX(i), this->getShadowY(i), 4, this->getColor());
-    } else
+        return true;
+    } else{
         al_draw_filled_circle(this->getX(), this->getY(), 4, this->getColor());
+        return false;
+    }
+}
+
+void Player::next_step(string winners[], int number){
+    if ((!this->zmiana_polozenia(number)))
+        for (int i =3; i>-1; i--)
+            if((winners[i] == "!@#") && (!this->getAdded())){
+                winners[i] = this->getName();
+                this->setAdded(true);
+            }
+
 }
 
 bool Player::crash(){
@@ -52,8 +65,6 @@ bool Player::crash(){
         return true;
     if ((pow((x-614),2) + pow((y-301),2) > 33856) && (x > 614))
         return true;
-    //if ((pow((x-614),2) + pow((y-301),2) < 33856) && (y>366))
-    //    return true;
     return false;
 
 }

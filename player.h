@@ -36,11 +36,15 @@ class Player
         string getName() { return name; }
         void setName(string val) { name = val; }
 
+        bool getAdded() { return added; }
+        void setAdded(bool val) { added = val; }
+
         float getLap() { return lap; }
         void setLap(float val) { lap = val; }
         void incLap() { lap++; }
 
-        void zmiana_polozenia(int number);
+        bool zmiana_polozenia(int number);
+        void next_step(string winners[], int number);
         bool crash();
 
     protected:
@@ -53,6 +57,7 @@ class Player
         float shadow[50][2];
         string name;
         int lap;
+        bool added;
 
 };
 
