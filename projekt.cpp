@@ -89,10 +89,11 @@ int main(){
             }
         }
 
-        Player *czerwony = new Player(400,390, al_map_rgb(255,0,0));
-        Player *zielony = new Player(400, 415, al_map_rgb(0,255,0));
-        Player *zolty = new Player(400, 440, al_map_rgb(255,255,0));
-        Player *niebieski = new Player(400, 465, al_map_rgb(0,255,255));
+        Player *player[4];
+        player[0] = new Player(400,390, al_map_rgb(255,0,0));
+        player[1] = new Player(400, 415, al_map_rgb(0,255,0));
+        player[2] = new Player(400, 440, al_map_rgb(255,255,0));
+        player[3] = new Player(400, 465, al_map_rgb(0,255,255));
 
 ///////// ---------------NAZWA UZYTKOWNIKA------------- /////////
         int counter = 339, kod = 0; bool ok = false, press = false; string nick = "";
@@ -136,12 +137,12 @@ int main(){
                         counting_down = true;
                     else
                         menu = true;
-                    czerwony->setName(nick);
+                    player[0]->setName(nick);
                 }
             }
         }
 
-///////// ---------ODLICZANIE DO STARTU ------------ /////////
+///////// ---------ODLICZANIE DO STARTU ------------ /////////            POBIERANIE IDENTYFIKATORÓW KAŻDEGO GRACZA { 0, 1, 2, 3 }
         counter = 240; menu = true;
         while(counting_down){
             ALLEGRO_EVENT events;
@@ -152,7 +153,7 @@ int main(){
                 counter--;
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
-                al_draw_text(comforta, al_map_rgb(200,200,200), 20, 10, 0, czerwony->getName().c_str());
+                al_draw_text(comforta, al_map_rgb(200,200,200), 20, 10, 0, player[0]->getName().c_str());
 
                 al_draw_filled_circle(400, 390, 5, al_map_rgb(255,0,0));
                 al_draw_filled_circle(400, 415, 5, al_map_rgb(0,255,0));
@@ -179,8 +180,9 @@ int main(){
 
         }
 
-        counter = 180;
+
 ///////// ------------------ GRA --------------------- /////////
+        counter = 180;
         string winners[4] = {"!@#","!@#","!@#","!@#"};
         while(game){
             ALLEGRO_EVENT events;
@@ -191,7 +193,6 @@ int main(){
                 switch(events.keyboard.keycode)
                 {
                     case ALLEGRO_KEY_LEFT:
-                        //wysylanie wcisniecia
                         pressed = true;
                         break;
                 }
@@ -202,7 +203,6 @@ int main(){
                 switch(events.keyboard.keycode)
                 {
                     case ALLEGRO_KEY_LEFT:
-                        //wysylanie puszczenia
                         pressed = false;
                         break;
                     case ALLEGRO_KEY_ESCAPE:
@@ -223,27 +223,26 @@ int main(){
             {
                 draw = false;
                 if (pressed == true){
-                    czerwony->incAlfa();
-                    niebieski->incAlfa();
-                    zielony->incAlfa();
-                    zolty->incAlfa();
+                    player[0]->incAlfa();
+                    player[1]->incAlfa();
+                    player[2]->incAlfa();
+                    player[3]->incAlfa();
                 }
                 if (number < 49)
                     number++;
                 else
                     number = 0;
 
+/////////////////////////////////////////////////////////////////   WYSYŁANIE / POBIERANIE KĄTA ALFA KAŻDEGO Z GRACZY
+
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
-                czerwony->next_step(winners, number);
-                zielony->next_step(winners, number);
-                zolty->next_step(winners, number);
-                niebieski->next_step(winners, number);
-                for (int a = 0; a<4; a++)
-                    cout << winners[a] << "\t";
-                cout << endl;
+                player[0]->next_step(winners, number);
+                player[1]->next_step(winners, number);
+                player[2]->next_step(winners, number);
+                player[3]->next_step(winners, number);
 
-                if(!draw_laps(czerwony->getLap(), comforta, winners, czerwony->getName())){
+                if(!draw_laps(player[0]->getLap(), comforta, winners, player[0]->getName())){
                     counter--;
                     if (counter < 1)
                         game = false;

@@ -59,6 +59,9 @@ bool draw_laps(int lap, ALLEGRO_FONT *comforta, string winners[], string name)
             al_draw_text(comforta, al_map_rgb(255,10,10), 400, 275, ALLEGRO_ALIGN_CENTRE, miejsce.c_str());
             return false;
         }
+}
+
+void losowanie(){
 
 }
 
@@ -66,7 +69,7 @@ void init()
 {
     if (!al_init())
         al_show_native_message_box(0, 0, 0, "Could not initialize Allegro 5", 0, 0);
-
+    srand(time(NULL));
     al_init_font_addon();
     al_init_ttf_addon();
     al_init_primitives_addon();
