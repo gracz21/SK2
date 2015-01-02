@@ -18,6 +18,7 @@ Player::Player(float x, float y, ALLEGRO_COLOR color)
     this->setLap(1);
     this->setAdded(false);
     this->setColor(color);
+    this->setName(" ");
     for (int i=0; i<50; i++)
         setShadow(x,y,i);
 }

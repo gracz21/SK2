@@ -22,15 +22,19 @@ int main(){
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_start_timer(timer);
 
-    bool  done = false, menu = true, name = false, game = false, draw = false, counting_down = false, pressed=false;
-    enum options {PLAY, EXIT};    int option = PLAY, number;
+    bool  done = false, menu = true, name = false, server = false, game = false, draw = false, counting_down = false,
+    pressed=false, finding = false, create = false;
+    int number;
+    enum options {PLAY, EXIT};
+    int option = PLAY;
+
 
 ///////////////////////////////// POCZATEK PROGRAMU ////////////////////////////////////////////////////////////////
-
     while(!done) {
     number = 0;
 ///////// ------------------ MENU --------------------- /////////
         while(menu){
+
             ALLEGRO_EVENT events;
             al_wait_for_event(event_queue, &events);
 
@@ -96,7 +100,7 @@ int main(){
         player[3] = new Player(400, 465, al_map_rgb(0,255,255));
 
 ///////// ---------------NAZWA UZYTKOWNIKA------------- /////////
-        int counter = 339, kod = 0; bool ok = false, press = false; string nick = "";
+        int kod = 0; bool ok = false, press = false; string nick = "";
         while(name){
             ALLEGRO_EVENT events;
             al_wait_for_event(event_queue, &events);
@@ -106,19 +110,20 @@ int main(){
                 kod = events.keyboard.keycode;
                 if (ALLEGRO_KEY_ENTER == kod)
                     ok = true;
-                else {
+                else if (ALLEGRO_KEY_ESCAPE == kod){
+                    name = false;
+                    menu = true;
+                } else {
                     kod += 64;
                     press = true;
                 }
+            } else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                name = false;
+                done = true;
             }
 
             if (events.type == ALLEGRO_EVENT_TIMER)
             {
-                counter--;
-                ostringstream ss;
-                ss << (counter/60);
-                string str = ss.str();
-                al_draw_text(draft, al_map_rgb(139, 69, 19), 400, 20, ALLEGRO_ALIGN_CENTRE, str.c_str());
                 if (press){
                     nick = nick + char(kod);
                     press = false;
@@ -126,25 +131,95 @@ int main(){
                 al_draw_text(comforta, al_map_rgb(50,50,50), 400, 250, ALLEGRO_ALIGN_CENTRE, "Enter your name:");
                 al_draw_text(comforta, al_map_rgb(200,200,200), 400, 350, ALLEGRO_ALIGN_CENTRE, nick.c_str());
                 al_draw_text(secret, al_map_rgb(200,200,200), 400, 500, ALLEGRO_ALIGN_CENTRE, "{ OK }");
-                if(ok)
-                    al_draw_rectangle(300, 493, 500, 560, al_map_rgb(139, 69, 19), 7.0);
+                al_draw_rectangle(300, 493, 500, 560, al_map_rgb(139, 69, 19), 7.0);
                 al_flip_display();
                 al_clear_to_color(al_map_rgb(0,0,0));
 
-                if(counter < 1){
+                if(ok){
+                    server = true;
                     name = false;
-                    if(ok)
-                        counting_down = true;
-                    else
-                        menu = true;
-                    player[0]->setName(nick);
+                    menu = false;
+                    player[0]->setName(nick);               // do usuniecia pozniej
                 }
+                else
+                    menu = true;
+            }
+
+        }
+
+///////// --------------- WYBOR SERWER/KLIENT ------------- /////////
+        enum options {SERWER, KLIENT};
+        int option = SERWER;
+        while(server){
+            ALLEGRO_EVENT events;
+            al_wait_for_event(event_queue, &events);
+
+            if(events.type == ALLEGRO_EVENT_KEY_DOWN)
+            {
+                switch(events.keyboard.keycode)
+                {
+                    case ALLEGRO_KEY_RIGHT:
+                        if (option == SERWER)
+                            option = KLIENT;
+                        else
+                            option = SERWER;
+                        break;
+                    case ALLEGRO_KEY_LEFT:
+                        if (option == SERWER)
+                            option = KLIENT;
+                        else
+                            option = SERWER;
+                        break;
+                    case ALLEGRO_KEY_ENTER:
+                        if (option==SERWER){
+                            server = false;
+                            create = true;
+                        } else{
+                            server = false;
+                            finding = true;
+                        }
+                        counting_down = true;
+                        break;
+                    case ALLEGRO_KEY_ESCAPE:
+                        server = false;
+                        menu = false;
+                        name = true;
+                        break;
+                }
+            }
+            else if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+                server = false;
+                done = true;
+            }
+
+            if (events.type == ALLEGRO_EVENT_TIMER)
+                draw = true;
+
+            if (draw)
+            {
+                draw = false;
+                al_draw_text(comforta, al_map_rgb(50,50,50), ScreenWidth/2, 150, ALLEGRO_ALIGN_CENTRE, "Do you want to");
+                al_draw_text(comforta, al_map_rgb(50,50,50), ScreenWidth/2, 200, ALLEGRO_ALIGN_CENTRE, "create game or find existing ?");
+                al_draw_text(secret, al_map_rgb(200,200,200), 250, 338, ALLEGRO_ALIGN_CENTRE, "{Create}");
+                al_draw_text(secret, al_map_rgb(200,200,200), 550, 338, ALLEGRO_ALIGN_CENTRE, "{Find}");
+                if (option == SERWER)
+                    al_draw_rectangle(110, 330, 390, 400, al_map_rgb(139, 69, 19), 7.0);
+                else
+                    al_draw_rectangle(450, 330, 650, 400, al_map_rgb(139, 69, 19), 7.0);
+
+                al_flip_display();
+                al_clear_to_color(al_map_rgb(0,0,0));
             }
         }
 
-///////// ---------ODLICZANIE DO STARTU ------------ /////////            POBIERANIE IDENTYFIKATORÓW KAŻDEGO GRACZA { 0, 1, 2, 3 }
-        counter = 240; menu = true;
+//!!!!!////////////      SERWER
+///////// POBIERANIE IDENTYFIKATORÓW KAŻDEGO GRACZA { 0, 1, 2, 3 }
+
+
+///////// ---------ODLICZANIE DO STARTU ------------ /////////
+        int counter = 240;
         while(counting_down){
+            menu = true;
             ALLEGRO_EVENT events;
             al_wait_for_event(event_queue, &events);
 
@@ -233,7 +308,7 @@ int main(){
                 else
                     number = 0;
 
-/////////////////////////////////////////////////////////////////   WYSYŁANIE / POBIERANIE KĄTA ALFA KAŻDEGO Z GRACZY
+//!!!!! WYSYŁANIE / POBIERANIE KĄTA ALFA KAŻDEGO Z GRACZY
 
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
