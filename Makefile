@@ -5,7 +5,7 @@ CFLAGS=
 LDFLAGS= -L/usr/local/lib/ -lallegro -lallegro_dialog -lallegro_primitives -lallegro_image -lallegro_font -lallegro_ttf
 
 SRCS=player.cpp projekt.cpp
-TARGET=zuzel
+TARGET=bin/zuzel
 
 OBJS=$(addprefix obj/, $(addsuffix .o, $(SRCS)))
 

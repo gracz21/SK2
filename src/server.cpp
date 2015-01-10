@@ -1,21 +1,8 @@
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <time.h>
+#include "server.h"
 
-#define SERVER_PORT 1234
 #define QUEUE_SIZE 5
 
-int main(int argc, char* argv[])
-{
+int main() {
 	int nSocket, nClientSocket;
 	int nBind, nListen;
 	int nFoo = 1;
@@ -26,12 +13,12 @@ int main(int argc, char* argv[])
 	memset(&stAddr, 0, sizeof(struct sockaddr));
 	stAddr.sin_family = AF_INET;
 	stAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	stAddr.sin_port = htons(SERVER_PORT);
+	stAddr.sin_port = htons(join_port);
 
 	/* create a socket */
 	nSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (nSocket < 0) {
-		fprintf(stderr, "%s: Can't create a socket.\n", argv[0]);
+		fprintf(stderr, "Can't create a socket.\n");
     exit(1);
 	}
 	setsockopt(nSocket, SOL_SOCKET, SO_REUSEADDR, (char*)&nFoo, sizeof(nFoo));
@@ -39,13 +26,13 @@ int main(int argc, char* argv[])
 	/* bind a name to a socket */
 	nBind = bind(nSocket, (struct sockaddr*)&stAddr, sizeof(struct sockaddr));
 	if (nBind < 0) {
-		fprintf(stderr, "%s: Can't bind a name to a socket.\n", argv[0]);
+		fprintf(stderr, "Can't bind a name to a socket.\n");
 		exit(1);
 	}
 	/* specify queue size */
 	nListen = listen(nSocket, QUEUE_SIZE);
 	if (nListen < 0) {
-		fprintf(stderr, "%s: Can't set queue size.\n", argv[0]);
+		fprintf(stderr, "Can't set queue size.\n");
 	}
 
 	while(1) {
@@ -53,22 +40,19 @@ int main(int argc, char* argv[])
 		nTmp = sizeof(struct sockaddr);
 		nClientSocket = accept(nSocket, (struct sockaddr*)&stClientAddr, &nTmp);
 		if (nClientSocket < 0) {
-			fprintf(stderr, "%s: Can't create a connection's socket.\n", argv[0]);
+			fprintf(stderr, "Can't create a connection's socket.\n");
 			exit(1);
 		}
 
-		printf("%s: [connection from %s]\n", argv[0], inet_ntoa((struct in_addr)stClientAddr.sin_addr));
-		time_t now;
-		struct tm *local;
-		time (&now);
-		local = localtime(&now);
+		printf("[connection from %s]\n", inet_ntoa((struct in_addr)stClientAddr.sin_addr));
 		char buffer[50];
 		int n;
-		n = sprintf(buffer, "%s\n", asctime(local));
+		n = sprintf(buffer, "%d", 24376);
+		std::cout << n << " " << buffer << std::endl;
 		write(nClientSocket, buffer, n);
 		close(nClientSocket);
 	}
 	
 	close(nSocket);
-	return(0);
+	return 0;
 }
