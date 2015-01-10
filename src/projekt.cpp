@@ -11,10 +11,10 @@ int main(){
 		al_show_native_message_box(0, 0, 0, "Could not create Allegro window", 0, 0);
 	}
 
-    ALLEGRO_BITMAP *tlo = al_load_bitmap("tlo.png");
-    ALLEGRO_FONT *draft = al_load_font("last draft.ttf", 200, 0);
-    ALLEGRO_FONT *secret = al_load_font("Top Secret.ttf", 50, 0);
-    ALLEGRO_FONT *comforta = al_load_font("Comfortaa_Regular.ttf", 50, 0);
+    ALLEGRO_BITMAP *tlo = al_load_bitmap("assets//tlo.png");
+    ALLEGRO_FONT *draft = al_load_font("assets//last draft.ttf", 200, 0);
+    ALLEGRO_FONT *secret = al_load_font("assets//Top Secret.ttf", 50, 0);
+    ALLEGRO_FONT *comforta = al_load_font("assets//Comfortaa_Regular.ttf", 50, 0);
     ALLEGRO_TIMER *timer = al_create_timer(1.0/FPS);
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_keyboard_event_source());
