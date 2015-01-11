@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
-#include "port_list.h"
 
 int create_connection();
 void get_rivals(int nSocket, int rivals[3]);

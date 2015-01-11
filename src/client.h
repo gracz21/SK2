@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
-#include "port_list.h"
+//#include "port_list.h"
 
 using namespace std;
 
@@ -16,4 +16,4 @@ struct sockaddr_in init_struct(char* server);
 int init_sck();
 int join(int sck);
 void send_alfa(float alfa, int sck);
-void get_rivals_alfa(float r_alfa[4], int id, int sck);
+void get_rivals_alfa(float r_alfa[4], int sck);

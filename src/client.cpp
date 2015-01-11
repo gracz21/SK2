@@ -10,7 +10,7 @@ struct sockaddr_in init_struct(char* server) {
 	memset(&sck_addr, 0, sizeof(sck_addr));
 	sck_addr.sin_family = AF_INET;
 	inet_aton(server, &sck_addr.sin_addr);
-	sck_addr.sin_port = htons(join_port);
+	sck_addr.sin_port = htons(1030);
 	
 	return sck_addr;
 }
@@ -54,7 +54,7 @@ void send_alfa(float alfa, int sck) {
 	write(sck, bufor, n);
 }
 
-void get_rivals_alfa(float r_alfa[4], int id, int sck) {
+void get_rivals_alfa(float r_alfa[4], int sck) {
 	char bufor[100];
 	read(sck, bufor, 100);
 	cout << "get_alfa_bufor: " << bufor << endl;

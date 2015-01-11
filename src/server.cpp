@@ -14,7 +14,7 @@ int create_connection() {
 	memset(&stAddr, 0, sizeof(struct sockaddr));
 	stAddr.sin_family = AF_INET;
 	stAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	stAddr.sin_port = htons(join_port);
+	stAddr.sin_port = htons(1030);
 
 	/* create a socket */
 	nSocket = socket(AF_INET, SOCK_STREAM, 0);

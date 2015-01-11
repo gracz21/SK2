@@ -220,8 +220,10 @@ int main(){
             }
         }
 
+				int sck;
 //////////////////      KLIENT - PODANIE IP
-	ok = false; string ip = "";
+	ok = false; 
+	string ip = "";
         while(finding){
             ALLEGRO_EVENT events;
             al_wait_for_event(event_queue, &events);
@@ -281,10 +283,13 @@ int main(){
 
 //////////////////      SERWER
 	if(create){
-		create = false;
-		waiting = true;	
+		//create = false;
+		waiting = true;
+		sck = create_connection();
 	}
 
+	int rivals[3];
+	
 //////////////////      CZEKANIE
        while(waiting){
             ALLEGRO_EVENT events;

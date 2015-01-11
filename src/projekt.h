@@ -8,6 +8,8 @@
 #include <allegro5/allegro_image.h>
 
 #include "player.h"
+#include "server.h"
+#include "client.h"
 
 #define ScreenWidth 800
 #define ScreenHeight 600
