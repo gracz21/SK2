@@ -6,7 +6,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <string.h>
 
-#define speed 2 
+#define speed 2
 using namespace std;
 
 class Player
