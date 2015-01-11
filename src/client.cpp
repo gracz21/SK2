@@ -2,15 +2,14 @@
 
 using namespace std;
 
-int main() {
+int get_connection(char* server) {
 	struct sockaddr_in sck_addr;
 	
-	char* server = "127.0.0.1";
-
-	int sck, color;
-	char bufor[10];
-
-	cout << "Dołączenie na porcie " << join_port << " do gry serwera " << server << endl;
+	int sck;
+	
+	//char* server = "127.0.0.1";
+	
+	cout << "Łączenie na porcie " << join_port << " do gry serwera " << server << endl;
 
 	memset(&sck_addr, 0, sizeof(sck_addr));
 	sck_addr.sin_family = AF_INET;
@@ -26,11 +25,23 @@ int main() {
 		perror ("Brak połączenia");
 		exit(EXIT_FAILURE);
 	}
+}
 
+int join(int sck) {
+	char bufor[10];
+	int id, last;
+	
 	read(sck, bufor, 10);
-	color = strtol(bufor, NULL, 10);
-	close(sck);
-
-	cout << color << endl;
-	return 0;
+	sscanf(bufor, "%d,%d", &id, &last);
+	
+	//close(sck);
+	
+	while(last == 0) {
+		strcpy(bufor, "\0");
+		read(sck, bufor, 10);
+		sscanf(bufor, "%d", &last);
+	}
+	
+	cout << "Dołączono do gry z id: " << id << endl;
+	return id;
 }

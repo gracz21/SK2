@@ -12,4 +12,5 @@
 #include <arpa/inet.h>
 #include "port_list.h"
 
-int main();
+int create_connection();
+void get_rivals(int nSocket);

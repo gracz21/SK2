@@ -12,4 +12,5 @@
 
 using namespace std;
 
-int client();
+int get_connection(char* server);
+int join(int sck);
