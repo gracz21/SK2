@@ -74,7 +74,7 @@ void get_rivals(int nSocket, int rivals[3]) {
 	}
 	
 	int i;
-	for(i = 0; i < 3; i++) {
+	for(i = 0; i < 2; i++) {
 		strcpy(bufor, "\0");
 		n = sprintf(bufor, "%d", 1);
 		cout << n << " " << bufor << endl;
@@ -86,7 +86,6 @@ void get_all_alfa(float r_alfa[4], int rivals[3], float alfa) {
 	int i;
 	char bufor[100];
 	float tmp;
-	int i;
 	r_alfa[0] = alfa;
 	for(i = 0; i < 3; i++) {
 		tmp = 0.0;
