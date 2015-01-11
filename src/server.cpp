@@ -40,9 +40,8 @@ int create_connection() {
 	return nSocket;
 }
 
-void get_rivals(int nSocket) {
+void get_rivals(int nSocket, int rivals[3]) {
 	int num_of_rivals = 0, id = 1, nClientSocket, n, last;
-	int rivals[3];
 	char bufor[50];
 	socklen_t nTmp;
 	struct sockaddr_in stClientAddr;
@@ -81,6 +80,31 @@ void get_rivals(int nSocket) {
 		cout << n << " " << bufor << endl;
 		write(rivals[i], bufor, n);
 	}
-	
-	///ZWRACAĆ RIVALS!!!
+}
+
+void get_all_alfa(float r_alfa[4], int rivals[3], float alfa) {
+	int i;
+	char bufor[100];
+	float tmp;
+	int i;
+	r_alfa[0] = alfa;
+	for(i = 0; i < 3; i++) {
+		tmp = 0.0;
+		strcpy(bufor, "\0");
+		read(rivals[i], bufor, 100);
+		sscanf(bufor, "%f", &tmp);
+		r_alfa[i + 1] = tmp;
+		cout << bufor << " " << r_alfa[i + 1] << endl;
+	}
+}
+
+void send_all_alfa(float r_alfa[4], int rivals[3]) {
+	int i;
+	char bufor[100];
+	for(i = 0; i < 3; i++) {
+		strcpy(bufor, "\0");
+		int n = sprintf(bufor, "%f,%f,%f,%f", r_alfa[0], r_alfa[1], r_alfa[2], r_alfa[3]);
+		cout << n << " " << bufor << endl;
+		write(rivals[i], bufor, n);
+	}
 }

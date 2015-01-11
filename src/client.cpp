@@ -45,3 +45,15 @@ int join(int sck) {
 	cout << "Dołączono do gry z id: " << id << endl;
 	return id;
 }
+
+void send_alfa(float alfa, int sck) {
+	char bufor[20];
+	int n = sprintf(bufor, "%f", alfa);
+	write(sck, bufor, n);
+}
+
+void get_rivals_alfa(float r_alfa[4], int id, int sck) {
+	char bufor[100];
+	read(sck, bufor, 10);
+	sscanf(bufor, "%f,%f,%f,%f", &r_alfa[0], &r_alfa[1], &r_alfa[2], &r_alfa[3]);
+}

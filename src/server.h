@@ -13,4 +13,6 @@
 #include "port_list.h"
 
 int create_connection();
-void get_rivals(int nSocket);
+void get_rivals(int nSocket, int rivals[3]);
+void get_all_alfa(float r_alfa[4], int rivals[3], float alfa);
+void send_all_alfa(float r_alfa[4], int rivals[3]);
