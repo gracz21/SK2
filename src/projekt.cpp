@@ -312,7 +312,7 @@ int main(){
 		    	counting_down = true;
                     	waiting = false;
                 } else{
-			me = join(sck);				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
+			me = join(sck);					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
 		    	waiting = false;
 		}
             }
@@ -323,7 +323,7 @@ int main(){
 
 
 ///////// ---------ODLICZANIE DO STARTU ------------ /////////
-        player[me]->setName(nick);               // do usuniecia pozniej
+        player[me]->setName(nick);               
         int counter = 240;
         while(counting_down){
             menu = true;
@@ -407,9 +407,9 @@ int main(){
             {
                 draw = false;
                 if (pressed == true){
-                    player[me]->incAlfa();							//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
+                    player[me]->incAlfa();						//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
                     //player[1]->incAlfa();
-                   // player[2]->incAlfa();
+                    //player[2]->incAlfa();
                     //player[3]->incAlfa();
                 }
                 if (number < 49)
@@ -417,7 +417,7 @@ int main(){
                 else
                     number = 0;
 	
-		// WYSYŁANIE / POBIERANIE KĄTA ALFA KAŻDEGO Z GRACZY				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
+		// WYSYŁANIE / POBIERANIE KĄTA ALFA KAŻDEGO Z GRACZY			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
 		if(server){
 			get_all_alfa(r_alfa, rivals, player[me]->getAlfa());
 			send_all_alfa(r_alfa, rivals);
@@ -426,8 +426,12 @@ int main(){
 			get_rivals_alfa(r_alfa, sck);
 		}
 
-		// ZMIANA ALFY
-		
+		// ZMIANA ALFY								//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
+		player[0]->setAlfa(r_alfa[0]);
+                player[1]->setAlfa(r_alfa[1]);
+                player[2]->setAlfa(r_alfa[2]);
+                player[3]->setAlfa(r_alfa[3]);		
+
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
                 player[0]->next_step(winners, number);
@@ -435,7 +439,7 @@ int main(){
                 player[2]->next_step(winners, number);
                 player[3]->next_step(winners, number);
 
-                if(!draw_laps(player[me]->getLap(), comforta, winners, player[me]->getName())){	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
+                if(!draw_laps(player[me]->getLap(), comforta, winners, player[me]->getName())){	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
                     counter--;
                     if (counter < 1)
                         game = false;
