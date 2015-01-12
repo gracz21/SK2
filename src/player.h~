@@ -13,7 +13,7 @@ class Player
 {
     public:
         Player();
-        Player(float x, float y, ALLEGRO_COLOR color, string kolor);
+        Player(float x, float y, ALLEGRO_COLOR color);
         virtual ~Player();
 
         float getX() { return x; }

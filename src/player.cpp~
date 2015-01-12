@@ -10,7 +10,7 @@ Player::~Player()
     //destructor
 }
 
-Player::Player(float x, float y, ALLEGRO_COLOR color, string kolor)
+Player::Player(float x, float y, ALLEGRO_COLOR color)
 {
     this->setX(x);
     this->setY(y);
@@ -19,7 +19,6 @@ Player::Player(float x, float y, ALLEGRO_COLOR color, string kolor)
     this->setAdded(false);
     this->setColor(color);
     this->setName(" BOT ");
-    this->setKolor(kolor);
     for (int i=0; i<50; i++)
         setShadow(x,y,i);
 }

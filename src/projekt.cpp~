@@ -408,9 +408,9 @@ int main(){
                 draw = false;
                 if (pressed == true){
                     player[me]->incAlfa();							//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
-                    //player[1]->incAlfa();
-                   // player[2]->incAlfa();
-                    //player[3]->incAlfa();
+                    player[1]->incAlfa();
+                    player[2]->incAlfa();
+                    player[3]->incAlfa();
                 }
                 if (number < 49)
                     number++;
@@ -425,8 +425,6 @@ int main(){
 			send_alfa(player[me]->getAlfa(), sck);
 			get_rivals_alfa(r_alfa, sck);
 		}
-
-		// ZMIANA ALFY
 		
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
@@ -435,7 +433,7 @@ int main(){
                 player[2]->next_step(winners, number);
                 player[3]->next_step(winners, number);
 
-                if(!draw_laps(player[me]->getLap(), comforta, winners, player[me]->getName())){	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
+                if(!draw_laps(player[me]->getLap(), comforta, winners, player[me]->getName())){
                     counter--;
                     if (counter < 1)
                         game = false;
