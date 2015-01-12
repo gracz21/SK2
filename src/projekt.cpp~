@@ -427,7 +427,11 @@ int main(){
 		}
 
 		// ZMIANA ALFY								//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
-		
+		player[0]->setAlfa(r_alfa[0]);
+                player[1]->setAlfa(r_alfa[1]);
+                player[2]->setAlfa(r_alfa[2]);
+                player[3]->setAlfa(r_alfa[3]);		
+
                 al_draw_bitmap(tlo, 0, 0, ALLEGRO_FLIP_HORIZONTAL);
 
                 player[0]->next_step(winners, number);

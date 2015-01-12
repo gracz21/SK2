@@ -283,7 +283,7 @@ int main(){
    	   } else {
 	     	memcpy( ip_char, ip.data(), ip.size() );			
     	     	ip_char[ip.size()] = '\0';
-	     	init_struct(ip_char);
+	     	sck_addr = init_struct(ip_char);
 		sck = init_sck();
 		if(connect(sck, (struct sockaddr*)&sck_addr, sizeof(sck_addr)) < 0) {
 			perror ("Brak polaczenia");
