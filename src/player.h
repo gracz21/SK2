@@ -9,8 +9,7 @@
 #define speed 2 
 using namespace std;
 
-class Player
-{
+class Player {
     public:
         Player();
         Player(float x, float y, ALLEGRO_COLOR color, string kolor);
@@ -61,7 +60,7 @@ class Player
         string name;
         int lap;
         bool added;
-	string kolor;
+				string kolor;
 };
 
 #endif // PLAYER_H

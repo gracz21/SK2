@@ -1,19 +1,6 @@
-#include <iostream>
-#include <sstream>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_native_dialog.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_image.h>
-
 #include "player.h"
 #include "server.h"
 #include "client.h"
-
-#define ScreenWidth 800
-#define ScreenHeight 600
-#define FPS 60
 
 
 using namespace std;
@@ -32,8 +19,7 @@ using namespace std;
  */
 
 
-bool draw_laps(int lap, ALLEGRO_FONT *comforta, string winners[], string name)
-{
+bool draw_laps(int lap, ALLEGRO_FONT *comforta, string winners[], string name) {
     int ktory;
     for (int i=0; i<4;i++)
         if(winners[i] == name){
@@ -61,20 +47,4 @@ bool draw_laps(int lap, ALLEGRO_FONT *comforta, string winners[], string name)
             al_draw_text(comforta, al_map_rgb(255,10,10), 400, 275, ALLEGRO_ALIGN_CENTRE, miejsce.c_str());
             return false;
         }
-}
-
-void losowanie(){
-
-}
-
-void init()
-{
-    if (!al_init())
-        al_show_native_message_box(0, 0, 0, "Could not initialize Allegro 5", 0, 0);
-    srand(time(NULL));
-    al_init_font_addon();
-    al_init_ttf_addon();
-    al_init_primitives_addon();
-    al_install_keyboard();
-    al_init_image_addon();
 }
