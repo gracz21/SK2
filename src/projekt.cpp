@@ -309,12 +309,12 @@ int main(){
 
                 if(server){
                     	get_rivals(sck, rivals);			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
-		    	counting_down = true;
                     	waiting = false;
                 } else{
 			me = join(sck);					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOWE
 		    	waiting = false;
 		}
+		counting_down = true;
             }
 
         }
