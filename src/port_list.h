@@ -1,1 +1,0 @@
-const short join_port = 1030;
