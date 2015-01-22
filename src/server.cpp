@@ -41,7 +41,7 @@ int create_connection() {
 }
 
 void get_rivals(int nSocket, int rivals[3]) {
-	int num_of_rivals = 0, id = 1, nClientSocket, n, last = 0;
+	int num_of_rivals = 0, id = 1, nClientSocket, n, last;
 	char bufor[50];
 	socklen_t nTmp;
 	struct sockaddr_in stClientAddr;
@@ -57,6 +57,11 @@ void get_rivals(int nSocket, int rivals[3]) {
 
 		printf("[connection from %s]\n", inet_ntoa((struct in_addr)stClientAddr.sin_addr));
 		
+		if((num_of_rivals + 1) == 3)
+			last = 1;
+		else
+			last = 0;
+		
 		strcpy(bufor, "\0");
 		n = sprintf(bufor, "%d,%d", id, last);
 		bufor[n] = '\0';
@@ -64,20 +69,14 @@ void get_rivals(int nSocket, int rivals[3]) {
 		cout << n << " " << bufor << endl;
 		write(nClientSocket, bufor, n);
 		
-		//if((num_of_rivals + 1) == 3)
-			//last = 1;
-		//else
-			//last = 0;
-		
 		rivals[num_of_rivals] = nClientSocket;
 		num_of_rivals++;
 		id++;
 		//close(nClientSocket);
 	}
-	printf("Zebrano graczy: 1. %d, 2. %d, 3. %d!\n", rivals[0], rivals[1], rivals[2]);
 	
 	int i;
-	for(i = 0; i < 3; i++) {
+	for(i = 0; i < 2; i++) {
 		strcpy(bufor, "\0");
 		n = sprintf(bufor, "%d", 1);
 		cout << n << " " << bufor << endl;
