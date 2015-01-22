@@ -28,6 +28,7 @@ int init_sck() {
 int join(int sck) {
 	char bufor[10];
 	int id, last;
+	printf("Clinet sck: %d", sck);
 	
 	//cout << "Łączenie na porcie " << join_port << " do gry serwera " << server << endl;
 	
@@ -50,6 +51,8 @@ int join(int sck) {
 void send_alfa(float alfa, int sck) {
 	char bufor[20];
 	int n = sprintf(bufor, "%f", alfa);
+	bufor[n] = '\0';
+	n++;
 	cout << "send_alfa_bufor: " << bufor << endl;
 	write(sck, bufor, n);
 }

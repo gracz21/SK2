@@ -19,41 +19,50 @@
 
 using namespace std;
 
-class Player {
+class Play {
 	public:
-		Player();
-		~Player();
+		Play();
+		~Play();
 		
 		void menu();
 		string enter_nick();
 		void choice();
+		string write_IP();
+		void waiting();
+		void counting_down();
+		void game();
 		
+		void set_done();
 		bool get_done();
-	private:
+		int get_sck();
+		void set_sck(int value);
+		int get_status();
+		bool get_server();
+		void status_inc();
+		ALLEGRO_TIMER *timer;
+		ALLEGRO_EVENT_QUEUE *event_queue;
 		ALLEGRO_DISPLAY *display;
-		ALLEGRO_BITMAP *tlo;
+				ALLEGRO_BITMAP *tlo;
 		ALLEGRO_FONT *draft;
 		ALLEGRO_FONT *secret;
 		ALLEGRO_FONT *comforta;
-		ALLEGRO_TIMER *timer;
-		ALLEGRO_EVENT_QUEUE *event_queue;
+			ALLEGRO_EVENT events;
+	//private:
 		
 		Player *player[4];
 		
+		int status;
+		int me;
+		int rivals[3];
+		
 		bool done;
-		bool name;
-		bool sORc;
-		bool game;
-		bool draw;
-		bool counting_down;
-		bool pressed;
-		bool get_ip;
 		bool server;
-		bool waiting;
-		bool create;
 		
 		int number;
 		int sck;
-}
+		
+		string nick;
+		string ip;
+};
 
 #endif
