@@ -249,7 +249,7 @@ void Play::choice() {
 string Play::write_IP() {
 	int kod = 0;
 	bool remove = false, press = false; 
-	ip = "";
+	ip = "192.168.1.102";
 	
 	while(status == 3) {
 		al_wait_for_event(event_queue, &events);
@@ -356,9 +356,8 @@ void Play::counting_down() {
 void Play::game() {
 	
 	int number = 0;
-	int counter = 180;
 	float r_alfa[4];
-	bool pressed = false;
+	bool pressed = false, dead = false;
 	string winners[4] = {"!@#","!@#","!@#","!@#"};
 	while(status == 7) {
 		al_wait_for_event(event_queue, &events);
@@ -366,6 +365,7 @@ void Play::game() {
 			switch(events.keyboard.keycode) {
 			case ALLEGRO_KEY_LEFT:
 				pressed = true;
+				cout << "PRESSED" << endl;
 				break;
 			}
 		}
@@ -379,13 +379,13 @@ void Play::game() {
 				break;
 			}
 		} else
-				if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-					status = 0; //??????
-					done = true;
-				}
+			if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+				status = 0; //??????
+				done = true;
+			}
 
 		if (events.type == ALLEGRO_EVENT_TIMER) {
-			if (pressed == true)
+			if (pressed == true && !dead)
 				player[me]->incAlfa();
 			if (number < 49)
 				number++;
@@ -413,9 +413,7 @@ void Play::game() {
 			player[3]->next_step(winners, number);
 			
 			if(!draw_laps(player[me]->getLap(), comforta, winners, player[me]->getName())) {
-				counter--;
-				if (counter < 1)
-					status = 0;
+				dead = true;
 			}
 			
 			al_flip_display();

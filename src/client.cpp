@@ -53,13 +53,13 @@ void send_alfa(float alfa, int sck) {
 	int n = sprintf(bufor, "%f", alfa);
 	bufor[n] = '\0';
 	n++;
-	cout << "send_alfa_bufor: " << bufor << endl;
+	//cout << "send_alfa_bufor: " << bufor << endl;
 	write(sck, bufor, n);
 }
 
 void get_rivals_alfa(float r_alfa[4], int sck) {
 	char bufor[100];
 	read(sck, bufor, 100);
-	cout << "get_alfa_bufor: " << bufor << endl;
+	//cout << "get_alfa_bufor: " << bufor << endl;
 	sscanf(bufor, "%f,%f,%f,%f", &r_alfa[0], &r_alfa[1], &r_alfa[2], &r_alfa[3]);
 }
