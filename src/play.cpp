@@ -361,15 +361,15 @@ void Play::game() {
 	string winners[4] = {"!@#","!@#","!@#","!@#"};
 	while(status == 7) {
 		al_wait_for_event(event_queue, &events);
-		if(events.type == ALLEGRO_EVENT_KEY_DOWN) {
+		/*if(events.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch(events.keyboard.keycode) {
 			case ALLEGRO_KEY_LEFT:
 				pressed = true;
 				cout << "PRESSED" << endl;
 				break;
 			}
-		}
-		if(events.type == ALLEGRO_EVENT_KEY_UP) {
+		}*/
+		/*if(events.type == ALLEGRO_EVENT_KEY_UP) {
 			switch(events.keyboard.keycode) {
 			case ALLEGRO_KEY_LEFT:
 				pressed = false;
@@ -378,14 +378,11 @@ void Play::game() {
 				status = 0; //?????
 				break;
 			}
-		} else
-			if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-				status = 0; //??????
-				done = true;
-			}
+		}*/ 
 
 		if (events.type == ALLEGRO_EVENT_TIMER) {
-			if (pressed == true && !dead)
+			al_get_keyboard_state(&(keyboard));
+			if (al_key_down(&(keyboard), ALLEGRO_KEY_LEFT) && !dead)
 				player[me]->incAlfa();
 			if (number < 49)
 				number++;
@@ -418,7 +415,11 @@ void Play::game() {
 			
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0,0,0));
-		}
+		} else
+			if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+				status = 0; //??????
+				done = true;
+			}
 	}
 }
 

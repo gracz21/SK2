@@ -47,6 +47,7 @@ class Play {
 		ALLEGRO_FONT *secret;
 		ALLEGRO_FONT *comforta;
 			ALLEGRO_EVENT events;
+			ALLEGRO_KEYBOARD_STATE keyboard;
 	//private:
 		
 		Player *player[4];
