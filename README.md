@@ -1,7 +1,7 @@
 SK2
 ===
 
-Projekt na zaliczenie przedmiotu Sieci Komputerowe 2
+Gra "Żużel" dla 4-os. jako projekt na zaliczenie przedmiotu Sieci Komputerowe 2.
 
 Jak odpalać?
 ===
