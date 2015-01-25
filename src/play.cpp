@@ -273,7 +273,7 @@ void Play::choice() {
 string Play::write_IP() {
 	int kod = 0;
 	bool remove = false, press = false;
-	ip = "192.168.1.103";
+	ip = "";    //"192.168.1.103";
 
 	while(status == 3) {
 		al_wait_for_event(event_queue, &events);
@@ -418,6 +418,17 @@ void Play::game() {
 				dead = true;
 			}
 
+            /*
+            if (al_key_down(&(keyboard), ALLEGRO_KEY_ESCAPE){
+                for (int i=3; i>(-1); i--){
+                    if((winners[i] == "!@#") && (!this->getAdded())) {
+                        winners[i] = this->getName();
+                        this->setAdded(true);
+                    }
+                }
+                status = 0;
+            }
+            */
             if(!game_go_on(winners)){
                 counter--;
                 if (counter < 1){
@@ -435,11 +446,19 @@ void Play::game() {
             }
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0,0,0));
-		} else
+		} /*else
 			if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-				status = -1;        // wpisanie na liste
+                for (int i=3; i>(-1); i--){
+                    if((winners[i] == "!@#") && (!this->getAdded())) {
+                        winners[i] = this->getName();
+                        this->setAdded(true);
+                    }
+                }
+
+				status = -1;
 				done = true;
 			}
+			*/
 	}
 }
 
