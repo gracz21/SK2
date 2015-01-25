@@ -23,7 +23,7 @@ class Play {
 	public:
 		Play();
 		~Play();
-		
+
 		void menu();
 		string enter_nick();
 		void choice();
@@ -31,39 +31,42 @@ class Play {
 		void waiting();
 		void counting_down();
 		void game();
-		
 		void set_done();
+		void close_socket();
 		bool get_done();
 		int get_sck();
 		void set_sck(int value);
+		void set_status(int value);
 		int get_status();
 		bool get_server();
 		void status_inc();
 		ALLEGRO_TIMER *timer;
 		ALLEGRO_EVENT_QUEUE *event_queue;
 		ALLEGRO_DISPLAY *display;
-				ALLEGRO_BITMAP *tlo;
+        ALLEGRO_BITMAP *tlo;
 		ALLEGRO_FONT *draft;
 		ALLEGRO_FONT *secret;
 		ALLEGRO_FONT *comforta;
-			ALLEGRO_EVENT events;
-			ALLEGRO_KEYBOARD_STATE keyboard;
-	//private:
-		
+        ALLEGRO_EVENT events;
+        ALLEGRO_KEYBOARD_STATE keyboard;
+	private:
+
 		Player *player[4];
-		
+
 		int status;
 		int me;
 		int rivals[3];
-		
+
 		bool done;
 		bool server;
-		
+
 		int number;
 		int sck;
-		
+
 		string nick;
 		string ip;
+
+        bool game_go_on(string winners[4]);
 };
 
 #endif
